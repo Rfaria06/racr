@@ -1,0 +1,7 @@
+{
+  "name": "Racr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
