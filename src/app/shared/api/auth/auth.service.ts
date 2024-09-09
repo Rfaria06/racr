@@ -5,7 +5,7 @@ import { BaseAuthStore } from 'pocketbase';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthServiceService {
+export class AuthService {
   #apiService: ApiService;
 
   constructor() {
