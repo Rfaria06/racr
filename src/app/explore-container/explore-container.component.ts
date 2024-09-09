@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import PocketBase from 'pocketbase';
 
 @Component({
   selector: 'app-explore-container',
