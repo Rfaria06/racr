@@ -1,0 +1,16 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\npnpm i\npnpm exec ionic capacitor sync\n"
+    },
+    "clean" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\npnpm clean"
+    },
+    "run" : {
+      "enabled" : true,
+      "script" : "#!\/bin\/sh\npnpm exec ionic serve"
+    }
+  }
+}
