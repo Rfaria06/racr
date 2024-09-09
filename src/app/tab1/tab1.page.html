@@ -11,5 +11,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <a routerLink="/login">Log in</a>
+
+  <ion-text>Authenticated? {{ authenticated ? "Yes" : "No" }}</ion-text>
+
+  <ion-button (click)="logout()">Logout</ion-button>
 </ion-content>
