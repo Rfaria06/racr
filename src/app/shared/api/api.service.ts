@@ -8,7 +8,7 @@ import PocketBase, {
 @Injectable({
   providedIn: 'root',
 })
-export class ApiServiceService {
+export class ApiService {
   #apiDomain = 'http://localhost:8080';
   #pocketbase: PocketBase = new PocketBase(this.#apiDomain);
   #authData?: RecordAuthResponse<RecordModel>;
@@ -59,10 +59,7 @@ export class ApiServiceService {
     return this.#pocketbase.files.getUrl(record, filename);
   }
 
-  public async getAccessToken(
-    email: string,
-    password: string
-  ): Promise<BaseAuthStore> {
+  public async _login(email: string, password: string): Promise<BaseAuthStore> {
     this.#authData = await this.#pocketbase
       .collection('users')
       .authWithPassword(email, password);
