@@ -68,4 +68,8 @@ export class ApiServiceService {
       .authWithPassword(email, password);
     return this.#pocketbase.authStore;
   }
+
+  public getAuthStore(): BaseAuthStore {
+    return this.#pocketbase.authStore;
+  }
 }
