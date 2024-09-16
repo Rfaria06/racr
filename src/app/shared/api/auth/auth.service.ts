@@ -15,7 +15,7 @@ export class AuthService {
   public async register(
     email: string,
     password: string,
-    passwordConfirm: string
+    passwordConfirm: string,
   ) {
     await this.#apiService.create('users', {
       email,
@@ -28,5 +28,17 @@ export class AuthService {
 
   public async login(email: string, password: string): Promise<BaseAuthStore> {
     return await this.#apiService._login(email, password);
+  }
+
+  public isAuthenticated(): boolean {
+    return this.#apiService.getAuthStore().isValid;
+  }
+
+  public getUserId(): string {
+    return this.#apiService.getAuthStore().model!['id'];
+  }
+
+  public logout() {
+    this.#apiService.getAuthStore().clear();
   }
 }
