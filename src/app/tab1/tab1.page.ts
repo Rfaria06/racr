@@ -17,5 +17,6 @@ export class Tab1Page {
 
   public logout() {
     this.#authService.logout();
+    window.location.reload();
   }
 }

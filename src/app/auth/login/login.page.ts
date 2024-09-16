@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { EmailValidator } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/api/auth/auth.service';
 
 @Component({
@@ -23,7 +23,12 @@ export class LoginPage {
 
   async login() {
     try {
-      this.#authService.login(this.email, this.password);
+      await this.#authService.login(this.email, this.password);
+      this.#router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          window.location.reload();
+        }
+      });
       this.#router.navigate(['/']);
     } catch (error) {
       this.error = String(error);

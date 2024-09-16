@@ -1,6 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Tab 1 </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticated" (click)="logout()">Logout</ion-button>
+      <ion-button *ngIf="!authenticated" routerLink="/login">Log in</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,10 +14,4 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <a routerLink="/login">Log in</a>
-
-  <ion-text>Authenticated? {{ authenticated ? "Yes" : "No" }}</ion-text>
-
-  <ion-button (click)="logout()">Logout</ion-button>
 </ion-content>
