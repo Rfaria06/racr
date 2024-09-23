@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api/api.service';
 import { ProtectedPage } from '../shared/protected-page';
 import { Participation, RacingEvent } from '../shared/types';
@@ -9,7 +9,7 @@ import { RecordModel } from 'pocketbase';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page extends ProtectedPage implements AfterViewInit {
+export class Tab2Page extends ProtectedPage implements OnInit {
   readonly #apiService: ApiService;
   events: Array<RacingEvent> = [];
   participations: Array<Participation> = [];
@@ -19,7 +19,7 @@ export class Tab2Page extends ProtectedPage implements AfterViewInit {
     this.#apiService = inject(ApiService);
   }
 
-  async ngAfterViewInit() {
+  async ngOnInit() {
     await this.setEvents();
   }
 
@@ -43,14 +43,23 @@ export class Tab2Page extends ProtectedPage implements AfterViewInit {
       date: new Date(event['date']),
       track: event.expand!['track'],
       user: event.expand!['user'],
-      // Use filter to only include matching participations
       participations: participationsResponse
-        .filter((participation) => participation['event'] === event.id) // Filter out participations that don't match
+        .filter((participation) => participation['event'] === event.id)
         .map((participation) => ({
           user: participation.expand!['user'],
           event: participation.expand!['event'],
-        })) as Participation[],
+        })),
     }));
+  }
+
+  public isUserParticipating(event: RacingEvent): boolean {
+    const currentUserId = this.#apiService.getAuthStore().model!['id'];
+
+    return (
+      event.participations?.some(
+        (participation) => participation.user!['id'] === currentUserId,
+      ) || false
+    );
   }
 
   public async participate(event: RacingEvent) {
