@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import PocketBase, {
   BaseAuthStore,
   RecordAuthResponse,
+  RecordFullListOptions,
   RecordModel,
 } from 'pocketbase';
 
@@ -15,16 +16,19 @@ export class ApiService {
 
   constructor() {}
 
-  public async getAll(collection: string): Promise<Array<RecordModel>> {
+  public async getAll(
+    collection: string,
+    options: RecordFullListOptions = {},
+  ): Promise<Array<RecordModel>> {
     return await this.#pocketbase
       .collection(collection)
-      .getFullList({ sort: '-created' });
+      .getFullList({ sort: '-created', ...options });
   }
 
   public async get(
     collection: string,
     id: string,
-    options = {}
+    options = {},
   ): Promise<RecordModel> {
     return await this.#pocketbase.collection(collection).getOne(id, options);
   }
@@ -32,7 +36,7 @@ export class ApiService {
   public async getFirst(
     name: string,
     condition: string,
-    options = {}
+    options = {},
   ): Promise<RecordModel> {
     return await this.#pocketbase
       .collection(name)
@@ -46,7 +50,7 @@ export class ApiService {
   public async update(
     name: string,
     id: string,
-    data: object
+    data: object,
   ): Promise<RecordModel> {
     return await this.#pocketbase.collection(name).update(id, data);
   }
