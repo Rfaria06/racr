@@ -9,8 +9,8 @@ import PocketBase, {
   providedIn: 'root',
 })
 export class ApiService {
-  #apiDomain = 'http://localhost:8080';
-  #pocketbase: PocketBase = new PocketBase(this.#apiDomain);
+  apiDomain = 'http://localhost:8080';
+  #pocketbase: PocketBase = new PocketBase(this.apiDomain);
   #authData?: RecordAuthResponse<RecordModel>;
 
   constructor() {}

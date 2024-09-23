@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  {
+    path: 'tracks-create',
+    loadChildren: () => import('./tracks/tracks-create/tracks-create.module').then( m => m.TracksCreatePageModule)
+  }
 ];
 @NgModule({
   imports: [
