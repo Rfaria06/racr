@@ -13,10 +13,21 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{event.name}}</ion-card-title>
-      <ion-card-subtitle>{{event.date.toLocaleString()}}</ion-card-subtitle>
+      <ion-card-subtitle
+        >{{event.date.toLocaleString()}} -
+        {{event.track!.name}}</ion-card-subtitle
+      >
     </ion-card-header>
 
     <ion-card-content> {{event.description}} </ion-card-content>
+    @for (participation of event.participations; track $index) {
+    <p>{{participation.event.name}}</p>
+    <p>{{participation.user!["email"]}}</p>
+    }
+
+    <ion-button fill="clear" (click)="participate(event)"
+      >Participate</ion-button
+    >
   </ion-card>
   }
 

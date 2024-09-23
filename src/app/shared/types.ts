@@ -10,4 +10,10 @@ export interface RacingEvent {
   id_users?: string;
   track?: Track;
   id_tracks?: string;
+  participations?: Array<Participation>;
+}
+
+export interface Participation {
+  user: AuthModel;
+  event: RacingEvent;
 }
