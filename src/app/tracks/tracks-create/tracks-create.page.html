@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input type="text" formControlName="name" placeholder="Enter Name"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+      Name is required (min 3 characters)
+    </ion-note>
+
+    <!-- Description -->
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-textarea formControlName="description" placeholder="Enter Description"></ion-textarea>
+    </ion-item>
+
+    <!-- Image Upload -->
+    <ion-item>
+      <ion-label position="stacked">Image</ion-label>
+      <input type="file" (change)="onFileChange($event)" accept="image/*">
+    </ion-item>
+
+    <!-- Website -->
+    <ion-item>
+      <ion-label position="stacked">Website</ion-label>
+      <ion-input type="url" formControlName="website" placeholder="Enter Website URL"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="form.get('website')?.invalid && form.get('website')?.touched">
+      Please enter a valid URL
+    </ion-note>
+
+    <!-- Submit Button -->
+    <ion-button expand="full" type="submit" [disabled]="form.invalid">Submit</ion-button>
+
+  </form>
+</ion-content>
