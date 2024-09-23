@@ -6,6 +6,8 @@ export interface RacingEvent {
   name: string;
   description: string;
   date: Date;
-  user: AuthModel;
-  track: Track;
+  user?: AuthModel;
+  id_users?: string;
+  track?: Track;
+  id_tracks?: string;
 }

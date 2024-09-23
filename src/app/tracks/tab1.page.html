@@ -7,6 +7,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="col-md-3" *ngFor="let track of tracks">
     <ion-card>
@@ -18,7 +19,18 @@
       <ion-card-content> {{track.description}} </ion-card-content>
     </ion-card>
   </div>
-  <ion-button expand="block" position="fixed" href="./tracks-create"
-    >Add a track</ion-button
-  >
+  <ion-fab>
+    <ion-fab-button
+      style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+      "
+      href="./tracks-create"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
