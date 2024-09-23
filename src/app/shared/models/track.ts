@@ -5,7 +5,7 @@ export class Track {
       public name: string,
       public description: string,
       public image: string,
-      public website: URL,
+      public website: string,
       public created: Date,
       public updated: Date,
     ) {}
@@ -18,7 +18,7 @@ export class Track {
       public name: string,
       public description: string,
       public image: FormData = new FormData(),
-      public website: URL,
+      public website: string,
       public created: Date,
       public updated: Date,
     ) {}

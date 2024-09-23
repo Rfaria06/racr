@@ -70,24 +70,16 @@ export class TrackApiService {
    * @param filename the string to be checked and transformed
    * @returns url for the image
    */
-  public getTackImageUrl(id_track: string, filename: string): string {
-    const isUrl = (str: string): boolean => {
-      // Use a simple regex to check if the string is a URL
-      const urlRegex = /^http/i;
-      return urlRegex.test(str);
-    };
-
-    // Check if the filename is already a URL
-    if (isUrl(filename)) return filename;
-
+  public getTrackImageUrl(id_track: RecordModel, filename: string): string {
     // Construct the URL using apiUrl, id_recipes, and filename
-    return (
-      this.apiService.apiDomain +
-      '/api/files/track/' +
-      id_track +
-      '/' +
-      filename
-    );
+    return this.apiService.getFileUrl(id_track, filename);
+    // return (
+    //   this.apiService.apiDomain +
+    //   '/api/files/track/' +
+    //   id_track +
+    //   '/' +
+    //   filename
+    // );
   }
 
   public getOriginalFilenameFromUrl = (url: string): string => {
@@ -121,7 +113,7 @@ export class TrackApiService {
       record['id_users'],
       cut(record['name'], 50),
       cut(record['description'], 3500),
-      this.getTackImageUrl(record.id, record['image']),
+      this.getTrackImageUrl(record, record['image']),
       record['website'],
       new Date(record['created']),
       new Date(record['updated']),
