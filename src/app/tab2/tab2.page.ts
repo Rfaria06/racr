@@ -12,7 +12,6 @@ import { RecordModel } from 'pocketbase';
 export class Tab2Page extends ProtectedPage implements OnInit {
   readonly #apiService: ApiService;
   events: Array<RacingEvent> = [];
-  participations: Array<Participation> = [];
 
   constructor() {
     super();
@@ -46,6 +45,7 @@ export class Tab2Page extends ProtectedPage implements OnInit {
       participations: participationsResponse
         .filter((participation) => participation['event'] === event.id)
         .map((participation) => ({
+          id: participation.id,
           user: participation.expand!['user'],
           event: participation.expand!['event'],
         })),
@@ -67,5 +67,17 @@ export class Tab2Page extends ProtectedPage implements OnInit {
       user: this.#apiService.getAuthStore().model!['id'],
       event: event.id,
     });
+    window.location.reload();
+  }
+
+  public async cancelParticipation(event: RacingEvent) {
+    const currentUserId = this.#apiService.getAuthStore().model!['id'];
+    const participation = event.participations?.find(
+      (x) => x.user!['id'] === currentUserId,
+    );
+    if (participation && participation.id)
+      await this.#apiService.delete('participations', participation.id);
+
+    window.location.reload();
   }
 }

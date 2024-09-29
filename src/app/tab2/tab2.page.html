@@ -19,15 +19,37 @@
       >
     </ion-card-header>
 
-    <ion-card-content> {{event.description}} </ion-card-content>
-    @for (participation of event.participations; track $index) {
-    <p>{{participation.event.name}}</p>
-    <p>{{participation.user!["email"]}}</p>
-    }
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group
+          ><ion-item-divider>
+            <ion-label> Description </ion-label>
+          </ion-item-divider>
+          <ion-item> {{event.description}}</ion-item>
+        </ion-item-group>
 
-    <ion-button fill="clear" (click)="participate(event)"
-      >Participate</ion-button
-    >
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label> Participants </ion-label>
+          </ion-item-divider>
+          @for (participation of event.participations; track $index) {
+          <ion-item>
+            <p>{{participation.user!["email"]}}</p>
+          </ion-item>
+          }
+        </ion-item-group>
+
+        @if (!isUserParticipating(event)) {
+        <ion-button fill="clear" (click)="participate(event)"
+          >Participate</ion-button
+        >
+        } @else {
+        <ion-button fill="clear" (click)="cancelParticipation(event)"
+          >Cancel Participation</ion-button
+        >
+        }
+      </ion-list>
+    </ion-card-content>
   </ion-card>
   }
 

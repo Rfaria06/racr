@@ -14,6 +14,7 @@ export interface RacingEvent {
 }
 
 export interface Participation {
+  id: string;
   user: AuthModel;
   event: RacingEvent;
 }
