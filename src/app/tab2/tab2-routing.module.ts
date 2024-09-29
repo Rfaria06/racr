@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: Tab2Page,
   },
+  {
+    path: 'event-create',
+    loadChildren: () => import('./event-create/event-create.module').then( m => m.EventCreatePageModule)
+  },
 ];
 
 @NgModule({
