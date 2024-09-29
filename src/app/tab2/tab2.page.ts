@@ -102,11 +102,11 @@ export class Tab2Page extends ProtectedPage implements OnInit {
 
   public isUserOwner(event: RacingEvent): boolean {
     const currentUserId = this.#apiService.getAuthStore().model!['id'];
-    return event.id_users === currentUserId;
+    return event!['user']!['id'], currentUserId;
   }
 
   public async deleteEvent(event: RacingEvent) {
     await this.#apiService.delete('events', event.id);
-    this.events.filter((x) => x.id !== event.id);
+    this.events = this.events.filter((x) => x.id !== event.id);
   }
 }

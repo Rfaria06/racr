@@ -49,6 +49,10 @@
         >
         }
       </ion-list>
+
+      @if (isUserOwner(event)) {
+      <ion-button (click)="deleteEvent(event)">Delete Event</ion-button>
+      }
     </ion-card-content>
   </ion-card>
   }
