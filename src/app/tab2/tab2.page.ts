@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ApiService } from '../shared/api/api.service';
 import { ProtectedPage } from '../shared/protected-page';
 import { Participation, RacingEvent } from '../shared/types';
@@ -13,7 +19,7 @@ export class Tab2Page extends ProtectedPage implements OnInit {
   readonly #apiService: ApiService;
   events: Array<RacingEvent> = [];
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     super();
     this.#apiService = inject(ApiService);
   }
@@ -63,11 +69,20 @@ export class Tab2Page extends ProtectedPage implements OnInit {
   }
 
   public async participate(event: RacingEvent) {
-    await this.#apiService.create('participations', {
-      user: this.#apiService.getAuthStore().model!['id'],
-      event: event.id,
+    const participation = await this.#apiService.create(
+      'participations',
+      {
+        user: this.#apiService.getAuthStore().model!['id'],
+        event: event.id,
+      },
+      { expand: 'user' },
+    );
+    event.participations?.unshift({
+      id: participation.id,
+      user: participation.expand!['user'],
+      event: event,
     });
-    window.location.reload();
+    event.participations = event.participations;
   }
 
   public async cancelParticipation(event: RacingEvent) {
@@ -75,9 +90,23 @@ export class Tab2Page extends ProtectedPage implements OnInit {
     const participation = event.participations?.find(
       (x) => x.user!['id'] === currentUserId,
     );
-    if (participation && participation.id)
+
+    if (participation && participation.id) {
       await this.#apiService.delete('participations', participation.id);
 
-    window.location.reload();
+      event.participations = event.participations?.filter(
+        (x) => x.id !== participation.id,
+      );
+    }
+  }
+
+  public isUserOwner(event: RacingEvent): boolean {
+    const currentUserId = this.#apiService.getAuthStore().model!['id'];
+    return event.id_users === currentUserId;
+  }
+
+  public async deleteEvent(event: RacingEvent) {
+    await this.#apiService.delete('events', event.id);
+    this.events.filter((x) => x.id !== event.id);
   }
 }

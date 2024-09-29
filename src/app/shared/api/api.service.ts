@@ -43,8 +43,12 @@ export class ApiService {
       .getFirstListItem(condition, options);
   }
 
-  public async create(collection: string, data: object): Promise<RecordModel> {
-    return await this.#pocketbase.collection(collection).create(data);
+  public async create(
+    collection: string,
+    data: object,
+    options = {},
+  ): Promise<RecordModel> {
+    return await this.#pocketbase.collection(collection).create(data, options);
   }
 
   public async update(
