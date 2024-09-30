@@ -26,6 +26,7 @@ export interface MychronSession {
   event?: RacingEvent;
   name: string;
   description: string;
+  fileUrl?: string;
   file: string;
 }
 
@@ -37,6 +38,7 @@ export class NewMychronSession {
     public name: string,
     public description: string,
     public file: FormData = new FormData(),
+    public fileUrl?: string,
     public event?: string,
   ) {}
 }

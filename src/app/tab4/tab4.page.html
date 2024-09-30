@@ -9,7 +9,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @for (session of sessions; track $index) { {{session.name}} }
+  @for (session of sessions; track $index) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{session.name}}</ion-card-title>
+      <ion-card-subtitle
+        >{{session.track.name + (" " + (session.event?.name ||
+        ''))}}</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Description</ion-label>
+          </ion-item-divider>
+          <ion-item>{{session.description}}</ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Measurement file</ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <a [href]="session.fileUrl" target="_blank">{{session.file}}</a>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+
+      @if (isUserOwner(session)) {
+      <ion-button (click)="deleteSession(session)">Delete Session</ion-button>
+      }
+    </ion-card-content>
+  </ion-card>
+  }
+
   <ion-fab>
     <ion-fab-button
       style="

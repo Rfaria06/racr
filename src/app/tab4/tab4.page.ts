@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ProtectedPage } from '../shared/protected-page';
 import { ApiService } from '../shared/api/api.service';
 import { MychronSession } from '../shared/types';
+import { RecordModel } from 'pocketbase';
 
 @Component({
   selector: 'app-tab4',
@@ -34,6 +35,17 @@ export class Tab4Page extends ProtectedPage implements OnInit {
       track: session.expand?.['track'],
       event: session.expand?.['event'],
       file: session['file'],
+      fileUrl: this.#apiService.getFileUrl(session, session['file']),
     }));
+  }
+
+  isUserOwner(session: MychronSession): boolean {
+    const currentUserId = this.#apiService.getAuthStore().model!['id'];
+    return session.user?.['id'] == currentUserId;
+  }
+
+  async deleteSession(session: MychronSession) {
+    await this.#apiService.delete('mychron_sessions', session.id);
+    this.sessions = this.sessions.filter((x) => x.id !== session.id);
   }
 }
