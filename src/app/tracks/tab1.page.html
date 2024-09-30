@@ -16,7 +16,12 @@
         <ion-card-title>{{track.name}}</ion-card-title>
       </ion-card-header>
 
-      <ion-card-content> {{track.description}} </ion-card-content>
+      <ion-card-content
+        ><p [innerHTML]="track.description"></p
+      ></ion-card-content>
+      @if (isUserOwner(track)) {
+      <ion-button (click)="deleteTrack(track)">Delete Track</ion-button>
+      }
     </ion-card>
   </div>
   <ion-fab>

@@ -10,8 +10,7 @@ import PocketBase, {
   providedIn: 'root',
 })
 export class ApiService {
-  apiDomain = 'http://localhost:8080';
-  #pocketbase: PocketBase = new PocketBase(this.apiDomain);
+  #pocketbase: PocketBase = new PocketBase('https://pocketbase.axanet.ch');
   #authData?: RecordAuthResponse<RecordModel>;
 
   constructor() {}
@@ -48,7 +47,12 @@ export class ApiService {
     data: object,
     options = {},
   ): Promise<RecordModel> {
-    return await this.#pocketbase.collection(collection).create(data, options);
+    console.log('START POST');
+    const x = await this.#pocketbase
+      .collection(collection)
+      .create(data, options);
+    console.log('END POST');
+    return x;
   }
 
   public async update(

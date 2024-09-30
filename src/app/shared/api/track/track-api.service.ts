@@ -4,7 +4,7 @@ import { RecordModel } from 'pocketbase';
 import { New_Track, Track } from '../../models/track';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TrackApiService {
   private readonly collectionName: string = 'tracks';
@@ -21,32 +21,28 @@ export class TrackApiService {
       if (!r) throw new Error('No Records');
       recipeList.push(this.createTrackFromModel(r));
     }
-    
+
     return recipeList;
   }
 
   async get(id_track: string): Promise<Track> {
-    const record: RecordModel = await this.apiService.get(
-      'track',
-      id_track,
-      {
-        expand: 'id_users',
-      },
-    );
+    const record: RecordModel = await this.apiService.get('track', id_track, {
+      expand: 'user',
+    });
     return this.createTrackFromModel(record);
   }
 
   async create(track: New_Track): Promise<void> {
-      await this.apiService.create(this.collectionName, {
-        id: track.id,
-        id_users: track.id_users,
-        name: track.name,
-        description: track.description,
-        image: track.image.get('image'),
-        website: track.website,
-        created: track.created, 
-        updated: track.updated,
-      });
+    await this.apiService.create(this.collectionName, {
+      id: track.id,
+      user: track.user,
+      name: track.name,
+      description: track.description,
+      image: track.image.get('image'),
+      website: track.website,
+      created: track.created,
+      updated: track.updated,
+    });
   }
 
   async delete(id: string): Promise<void> {
@@ -63,7 +59,6 @@ export class TrackApiService {
   ): Promise<void> => {
     await this.apiService.update(this.collectionName, id, newImage);
   };
-
 
   public getTrackImageUrl(id_track: RecordModel, filename: string): string {
     return this.apiService.getFileUrl(id_track, filename);
@@ -92,7 +87,7 @@ export class TrackApiService {
 
     return new Track(
       record.id,
-      record['id_users'],
+      record['user'],
       cut(record['name'], 50),
       cut(record['description'], 3500),
       this.getTrackImageUrl(record, record['image']),

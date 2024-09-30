@@ -20,7 +20,7 @@ export class TracksCreatePage {
     // Initialize the form group with controls and validators
     this.form = this.fb.group({
       id: [''],
-      id_users: [api.apiService.getAuthStore().model!['id']],
+      user: [api.apiService.getAuthStore().model!['id']],
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: [''],
       image: [null, [Validators.required]],
@@ -30,31 +30,17 @@ export class TracksCreatePage {
     });
   }
   // Handle form submission
-  onSubmit() {
-    if (this.form.valid) {
-      const formValue = this.form.value;
-      this.api.create(
-        new New_Track(
-          '',
-          this.api.apiService.getAuthStore().model!['id'],
-          formValue.name,
-          formValue.description,
-          formValue.image,
-          formValue.URL,
-          formValue.created,
-          formValue.updated,
-        ),
-      );
+  async onSubmit() {
+    if (this.form.invalid) return;
+    const formValue = this.form.value;
+    await this.api.create(formValue).then((x) => {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          window.location.reload();
+          // window.location.reload();
         }
       });
       this.router.navigate(['/tabs/tab1']);
-      console.log('Form submitted:', formValue);
-    } else {
-      console.log('Form is invalid');
-    }
+    });
   }
 
   // Handle file input change for the image

@@ -20,4 +20,15 @@ export class Tab1Page extends ProtectedPage implements OnInit {
   async ngOnInit() {
     this.tracks = await this.api.getAll();
   }
+
+  public isUserOwner(track: Track): boolean {
+    const currentUserId = this.api.apiService.getAuthStore().model!['id'];
+    console.dir(track);
+    return track.user == currentUserId;
+  }
+
+  public async deleteTrack(track: Track) {
+    await this.api.delete(track.id);
+    this.tracks = this.tracks.filter((x) => x.id !== track.id);
+  }
 }
