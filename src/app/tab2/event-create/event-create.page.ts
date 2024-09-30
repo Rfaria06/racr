@@ -35,7 +35,6 @@ export class EventCreatePage implements OnInit {
 
   async ngOnInit() {
     this.tracks = await this.tracksApi.getAll();
-    console.dir(this.tracks);
   }
 
   async onSubmit() {

@@ -47,12 +47,7 @@ export class ApiService {
     data: object,
     options = {},
   ): Promise<RecordModel> {
-    console.log('START POST');
-    const x = await this.#pocketbase
-      .collection(collection)
-      .create(data, options);
-    console.log('END POST');
-    return x;
+    return await this.#pocketbase.collection(collection).create(data, options);
   }
 
   public async update(

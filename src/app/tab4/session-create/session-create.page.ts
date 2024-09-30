@@ -52,7 +52,6 @@ export class SessionCreatePage implements OnInit {
   async onSubmit() {
     if (this.form.invalid) return;
     const formValue = this.form.value;
-    console.dir(formValue);
     await this.apiService.create(
       'mychron_sessions',
       new NewMychronSession(

@@ -76,7 +76,6 @@ export class TrackApiService {
       const urlObject = new URL(url);
       return isUrl(url) ? extractFilename(urlObject.pathname) : '';
     } catch (error) {
-      console.error('Error parsing URL:', error);
       return '';
     }
   };

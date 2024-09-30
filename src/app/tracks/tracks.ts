@@ -23,7 +23,6 @@ export class Tab1Page extends ProtectedPage implements OnInit {
 
   public isUserOwner(track: Track): boolean {
     const currentUserId = this.api.apiService.getAuthStore().model!['id'];
-    console.dir(track);
     return track.user == currentUserId;
   }
 
