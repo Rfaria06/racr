@@ -16,7 +16,10 @@ export class EventCreatePage implements OnInit {
   readonly #router: Router;
   tracks: Track[] = [];
 
-  constructor(private tracksApi: TrackApiService) {
+  constructor(
+    private tracksApi: TrackApiService,
+    private apiService: ApiService,
+  ) {
     const formBuilder = inject(FormBuilder);
     this.#api = inject(ApiService);
     this.#router = inject(Router);
@@ -34,7 +37,10 @@ export class EventCreatePage implements OnInit {
   }
 
   async ngOnInit() {
-    this.tracks = await this.tracksApi.getAll();
+    this.tracks = (await this.apiService.getAll('tracks', {
+      expand: 'user',
+    })) as unknown as Track[];
+    this.tracks = this.tracks;
   }
 
   async onSubmit() {
