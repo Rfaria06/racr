@@ -64,22 +64,9 @@ export class TrackApiService {
     await this.apiService.update(this.collectionName, id, newImage);
   };
 
-  /**
-   * Gets the image url from pocketbase if it is not empty and it is not already a url
-   * @param id_recipes the id of the recipes record wich contains the image
-   * @param filename the string to be checked and transformed
-   * @returns url for the image
-   */
+
   public getTrackImageUrl(id_track: RecordModel, filename: string): string {
-    // Construct the URL using apiUrl, id_recipes, and filename
     return this.apiService.getFileUrl(id_track, filename);
-    // return (
-    //   this.apiService.apiDomain +
-    //   '/api/files/track/' +
-    //   id_track +
-    //   '/' +
-    //   filename
-    // );
   }
 
   public getOriginalFilenameFromUrl = (url: string): string => {
@@ -94,16 +81,11 @@ export class TrackApiService {
       const urlObject = new URL(url);
       return isUrl(url) ? extractFilename(urlObject.pathname) : '';
     } catch (error) {
-      // Handle invalid URL or other errors
       console.error('Error parsing URL:', error);
       return '';
     }
   };
 
-  /**
-   * creates a recipe from the RecordModel
-   * Also cuts strings that aren't allowed to be more than 50 characters
-   */
   private createTrackFromModel(record: RecordModel): Track {
     const cut = (str: string, len: number): string =>
       str.length > len ? str.slice(0, len) + '...' : str;
