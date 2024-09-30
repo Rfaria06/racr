@@ -18,3 +18,27 @@ export interface Participation {
   user: AuthModel;
   event: RacingEvent;
 }
+
+export interface MychronSession {
+  id: string;
+  user: AuthModel;
+  track: Track;
+  event?: RacingEvent;
+  name: string;
+  description: string;
+  fileUrl?: string;
+  file: string;
+}
+
+export class NewMychronSession {
+  constructor(
+    public id: string,
+    public user: string,
+    public track: string,
+    public name: string,
+    public description: string,
+    public file: FormData = new FormData(),
+    public fileUrl?: string,
+    public event?: string,
+  ) {}
+}

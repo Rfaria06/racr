@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mychron Sessions</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticated" (click)="logout()">Logout</ion-button>
+      <ion-button *ngIf="!authenticated" routerLink="/login">Log in</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @for (session of sessions; track $index) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{session.name}}</ion-card-title>
+      <ion-card-subtitle
+        >{{session.track.name + (" " + (session.event?.name ||
+        ''))}}</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Description</ion-label>
+          </ion-item-divider>
+          <ion-item>{{session.description}}</ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Measurement file</ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <a [href]="session.fileUrl" target="_blank">{{session.file}}</a>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+
+      @if (isUserOwner(session)) {
+      <ion-button (click)="deleteSession(session)">Delete Session</ion-button>
+      }
+    </ion-card-content>
+  </ion-card>
+  }
+
+  <ion-fab>
+    <ion-fab-button
+      style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+      "
+      href="./session-create"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

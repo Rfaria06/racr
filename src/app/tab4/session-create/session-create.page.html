@@ -1,18 +1,17 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Create Track</ion-title>
+    <ion-title>Create Session</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <!-- Name -->
     <ion-item>
       <ion-label position="stacked">Name</ion-label>
       <ion-input
         type="text"
         formControlName="name"
-        placeholder="Enter Name"
+        placeholder="Name"
       ></ion-input>
     </ion-item>
     <ion-note
@@ -22,7 +21,6 @@
       Name is required (min 3 characters)
     </ion-note>
 
-    <!-- Description -->
     <ion-item>
       <ion-label position="stacked">Description</ion-label>
       <editor
@@ -45,31 +43,53 @@
       ></editor>
     </ion-item>
 
-    <!-- Image Upload -->
     <ion-item>
-      <ion-label position="stacked">Image</ion-label>
-      <ion-input type="file" (change)="onFileChange($event)" accept="image/*" />
-    </ion-item>
-
-    <!-- Website -->
-    <ion-item>
-      <ion-label position="stacked">Website</ion-label>
+      <ion-label position="stacked">Measurement file</ion-label>
       <ion-input
-        type="url"
-        formControlName="website"
-        placeholder="Enter Website URL"
+        type="file"
+        (change)="onFileChange($event)"
+        accept="*/*"
       ></ion-input>
     </ion-item>
     <ion-note
       color="danger"
-      *ngIf="form.get('website')?.invalid && form.get('website')?.touched"
+      *ngIf="form.get('file')?.invalid && form.get('file')?.touched"
     >
-      Please enter a valid URL
+      Required
     </ion-note>
 
-    <!-- Submit Button -->
+    <ion-item>
+      <ion-label position="stacked">Track</ion-label>
+      <ion-select formControlName="track">
+        @for (track of tracks; track $index) {
+        <ion-select-option [value]="track.id">{{track.name}}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    <ion-note
+      color="danger"
+      *ngIf="form.get('track')?.invalid && form.get('track')?.touched"
+    >
+      Required
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Event</ion-label>
+      <ion-select formControlName="event">
+        @for (event of events; track $index) {
+        <ion-select-option [value]="event.id">{{event.name}}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    <ion-note
+      color="danger"
+      *ngIf="form.get('event')?.invalid && form.get('event')?.touched"
+    >
+      Required
+    </ion-note>
+
     <ion-button expand="full" type="submit" [disabled]="form.invalid"
-      >Submit</ion-button
+      >Save</ion-button
     >
   </form>
 </ion-content>

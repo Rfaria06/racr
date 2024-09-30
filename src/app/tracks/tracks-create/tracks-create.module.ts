@@ -8,14 +8,16 @@ import { IonicModule } from '@ionic/angular';
 import { TracksCreatePageRoutingModule } from './tracks-create-routing.module';
 
 import { TracksCreatePage } from './tracks-create.page';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
+    EditorModule,
     TracksCreatePageRoutingModule,
-    ],
+  ],
   declarations: [TracksCreatePage],
 })
 export class TracksCreatePageModule {}

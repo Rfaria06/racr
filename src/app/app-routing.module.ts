@@ -34,8 +34,18 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'session-create',
+    loadChildren: () =>
+      import('./tab4/session-create/session-create.module').then(
+        (m) => m.SessionCreatePageModule,
+      ),
+  },
+  {
     path: 'setup-create',
-    loadChildren: () => import('./tab3/tracks-create/setup-create.module').then(m => m.SetupCreatePageModule)
+    loadChildren: () =>
+      import('./tab3/tracks-create/setup-create.module').then(
+        (m) => m.SetupCreatePageModule,
+      ),
   },
 ];
 @NgModule({
