@@ -28,7 +28,7 @@ export class Tab2Page extends ProtectedPage implements OnInit {
     await this.setEvents();
   }
 
-  private async setEvents() {
+  async setEvents() {
     const eventsResponse: RecordModel[] = await this.#apiService.getAll(
       'events',
       {

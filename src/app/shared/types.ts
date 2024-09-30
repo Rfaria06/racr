@@ -18,3 +18,13 @@ export interface Participation {
   user: AuthModel;
   event: RacingEvent;
 }
+
+export interface MychronSession {
+  id: string;
+  user: AuthModel;
+  track: Track;
+  event?: RacingEvent;
+  name: string;
+  description: string;
+  files: Array<string>;
+}

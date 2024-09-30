@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mychron Sessions</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticated" (click)="logout()">Logout</ion-button>
+      <ion-button *ngIf="!authenticated" routerLink="/login">Log in</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @for (session of sessions; track $index) { {{session.name}} }
+</ion-content>
