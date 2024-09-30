@@ -1,15 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Tab 3 </ion-title>
+    <ion-title>
+      Setups
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="col-md-3" *ngFor="let setup of setups">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{setup.name}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <h2>Wheatercondition: {{setup.weatherConditions}}</h2>
+        </ion-card-content>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+        <ion-card-content>
+          <h4 [innerHTML]="setup.description"></h4>
+        </ion-card-content>
+      </ion-card>
+  </div>
+  <ion-fab>
+    <ion-fab-button
+      style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+      "
+      href="./setup-create"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'tracks-create',
     loadChildren: () => import('./tracks/tracks-create/tracks-create.module').then( m => m.TracksCreatePageModule)
+  },
+  {
+    path: 'setup-create',
+    loadChildren: () => import('./tab3/tracks-create/setup-create.module').then(m => m.SetupCreatePageModule)
   }
 ];
 @NgModule({
