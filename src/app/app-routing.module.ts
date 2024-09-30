@@ -33,6 +33,13 @@ const routes: Routes = [
         (m) => m.EventCreatePageModule,
       ),
   },
+  {
+    path: 'session-create',
+    loadChildren: () =>
+      import('./tab4/session-create/session-create.module').then(
+        (m) => m.SessionCreatePageModule,
+      ),
+  },
 ];
 @NgModule({
   imports: [

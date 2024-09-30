@@ -10,4 +10,18 @@
 
 <ion-content [fullscreen]="true">
   @for (session of sessions; track $index) { {{session.name}} }
+  <ion-fab>
+    <ion-fab-button
+      style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+      "
+      href="./session-create"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

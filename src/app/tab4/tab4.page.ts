@@ -33,7 +33,7 @@ export class Tab4Page extends ProtectedPage implements OnInit {
       user: session.expand?.['user'],
       track: session.expand?.['track'],
       event: session.expand?.['event'],
-      files: session['files'],
+      file: session['file'],
     }));
   }
 }

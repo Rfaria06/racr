@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab4Page
+  },
+  {
+    path: 'session-create',
+    loadChildren: () => import('./session-create/session-create.module').then( m => m.SessionCreatePageModule)
   }
 ];
 

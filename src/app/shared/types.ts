@@ -26,5 +26,17 @@ export interface MychronSession {
   event?: RacingEvent;
   name: string;
   description: string;
-  files: Array<string>;
+  file: string;
+}
+
+export class NewMychronSession {
+  constructor(
+    public id: string,
+    public user: string,
+    public track: string,
+    public name: string,
+    public description: string,
+    public file: FormData = new FormData(),
+    public event?: string,
+  ) {}
 }
