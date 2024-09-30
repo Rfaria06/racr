@@ -1,10 +1,10 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Create Track</ion-title>
+    <ion-title>Create Event</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <!-- Name -->
     <ion-item>
@@ -12,7 +12,7 @@
       <ion-input
         type="text"
         formControlName="name"
-        placeholder="Enter Name"
+        placeholder="Name"
       ></ion-input>
     </ion-item>
     <ion-note
@@ -31,29 +31,24 @@
       ></ion-textarea>
     </ion-item>
 
-    <!-- Image Upload -->
+    <!-- Date -->
     <ion-item>
-      <ion-label position="stacked">Image</ion-label>
-      <ion-input type="file" (change)="onFileChange($event)" accept="image/*" />
+      <ion-label position="stacked">Date</ion-label>
+      <ion-datetime formControlName="date"></ion-datetime>
     </ion-item>
 
-    <!-- Website -->
     <ion-item>
-      <ion-label position="stacked">Website</ion-label>
-      <ion-input
-        type="url"
-        formControlName="website"
-        placeholder="Enter Website URL"
-      ></ion-input>
+      <ion-label position="stacked">Track</ion-label>
+      <ion-select formControlName="track">
+        @for (track of tracks; track $index) {
+        <ion-select-option [value]="track.id">{{track.name}}</ion-select-option>
+        }
+      </ion-select>
     </ion-item>
-    <ion-note
-      color="danger"
-      *ngIf="form.get('website')?.invalid && form.get('website')?.touched"
-    >
-      Please enter a valid URL
-    </ion-note>
 
     <!-- Submit Button -->
-    <ion-button expand="full" type="submit" [disabled]="form.invalid">Submit</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="form.invalid"
+      >Save</ion-button
+    >
   </form>
 </ion-content>

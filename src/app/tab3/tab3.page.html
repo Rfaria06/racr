@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Setups
-    </ion-title>
+    <ion-title> Setups </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticated" (click)="logout()">Logout</ion-button>
+      <ion-button *ngIf="!authenticated" routerLink="/login">Log in</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="col-md-3" *ngFor="let setup of setups">
       <ion-card>

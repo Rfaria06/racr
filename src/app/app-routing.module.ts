@@ -9,20 +9,34 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./auth/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () =>
+      import('./auth/register/register.module').then(
+        (m) => m.RegisterPageModule,
+      ),
   },
   {
     path: 'tracks-create',
-    loadChildren: () => import('./tracks/tracks-create/tracks-create.module').then( m => m.TracksCreatePageModule)
+    loadChildren: () =>
+      import('./tracks/tracks-create/tracks-create.module').then(
+        (m) => m.TracksCreatePageModule,
+      ),
+  },
+  {
+    path: 'event-create',
+    loadChildren: () =>
+      import('./tab2/event-create/event-create.module').then(
+        (m) => m.EventCreatePageModule,
+      ),
   },
   {
     path: 'setup-create',
     loadChildren: () => import('./tab3/tracks-create/setup-create.module').then(m => m.SetupCreatePageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [
