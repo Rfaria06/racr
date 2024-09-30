@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SessionCreatePageRoutingModule } from './session-create-routing.module';
 
 import { SessionCreatePage } from './session-create.page';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { SessionCreatePage } from './session-create.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    EditorModule,
     SessionCreatePageRoutingModule,
   ],
   declarations: [SessionCreatePage],

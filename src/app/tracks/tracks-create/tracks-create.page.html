@@ -25,10 +25,24 @@
     <!-- Description -->
     <ion-item>
       <ion-label position="stacked">Description</ion-label>
-      <ion-textarea
+      <editor
+        apiKey="6tnzdgljt9mjkpnysvunjzvvvs72oir0a9v9ot3vtlrq0u9y"
         formControlName="description"
-        placeholder="Enter Description"
-      ></ion-textarea>
+        name="description"
+        [init]="{
+          height: 200,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+          toolbar:
+            'undo redo | formatselect | bold italic backcolor | \
+            alignleft aligncenter alignright alignjustify | \
+            bullist numlist outdent indent | removeformat | help'
+        }"
+      ></editor>
     </ion-item>
 
     <!-- Image Upload -->
@@ -54,6 +68,8 @@
     </ion-note>
 
     <!-- Submit Button -->
-    <ion-button expand="full" type="submit" [disabled]="form.invalid">Submit</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="form.invalid"
+      >Submit</ion-button
+    >
   </form>
 </ion-content>
