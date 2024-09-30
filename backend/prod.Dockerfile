@@ -16,7 +16,7 @@ COPY ./pb_migrations /pb/pb_migrations
 # uncomment to copy the local pb_hooks dir into the image
 # COPY ./pb_hooks /pb/pb_hooks
 
-EXPOSE 443
+EXPOSE 8089
 
 # start PocketBase
-CMD ["/pb/pocketbase", "serve", "pocketbase.axanet.ch"]
+CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8089"]
