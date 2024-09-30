@@ -33,6 +33,10 @@ const routes: Routes = [
         (m) => m.EventCreatePageModule,
       ),
   },
+  {
+    path: 'setup-create',
+    loadChildren: () => import('./tab3/tracks-create/setup-create.module').then(m => m.SetupCreatePageModule)
+  },
 ];
 @NgModule({
   imports: [
